@@ -20,7 +20,7 @@ def get_bounding_box(mesh):
             miny = min(p[stl.Dimension.Y], miny)
             maxz = max(p[stl.Dimension.Z], maxz)
             minz = min(p[stl.Dimension.Z], minz)
-    geom_center = ((maxx-minx) / 2.0, (maxy-miny)/2.0, (maxz-minz)/2.0)
+    geom_center = ((maxx+minx) / 2.0, (maxy+miny)/2.0, (maxz+minz)/2.0)
     bounding_box = (maxx-minx, maxy-miny, maxz-minz)
     extrema = ((minx, maxx), (miny, maxy), (minz, maxz))
     return geom_center, bounding_box, extrema
