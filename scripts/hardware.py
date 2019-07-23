@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import numpy
+import resource_retriever
 import stl
 
 def get_bounding_box(mesh):
@@ -29,7 +30,8 @@ def mesh(name, mesh_path, rpy="0 0 0", scale="0.001 0.001 0.001"):
     scale_vector = map(float, scale.split(" "))
     rpy_vector = map(float, rpy.split(" "))
 
-    mesh = stl.mesh.Mesh.from_file(mesh_path)
+    mesh_file_path = resource_retriever.get_filename(mesh_path, False)
+    mesh = stl.mesh.Mesh.from_file(mesh_file_path)
 
     mesh.x *= scale_vector[0]
     mesh.y *= scale_vector[1]
@@ -51,7 +53,7 @@ def mesh(name, mesh_path, rpy="0 0 0", scale="0.001 0.001 0.001"):
     <visual>
         <origin rpy="{rpy}"/> 
         <geometry>
-            <mesh filename="file://{mesh_path}" scale="{scale}"/>
+            <mesh filename="{mesh_path}" scale="{scale}"/>
         </geometry>
     </visual>
     <collision>
