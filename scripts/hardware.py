@@ -26,9 +26,10 @@ def get_bounding_box(mesh):
     extrema = ((minx, maxx), (miny, maxy), (minz, maxz))
     return geom_center, bounding_box, extrema
 
-def mesh(name, mesh_path, rpy="0 0 0", scale="0.001 0.001 0.001"):
+def mesh(name, mesh_path, mass, rpy="0 0 0", scale="0.001 0.001 0.001"):
     scale_vector = map(float, scale.split(" "))
     rpy_vector = map(float, rpy.split(" "))
+    mass = float(mass)
 
     mesh_file_path = resource_retriever.get_filename(mesh_path, False)
     mesh = stl.mesh.Mesh.from_file(mesh_file_path)
@@ -46,6 +47,8 @@ def mesh(name, mesh_path, rpy="0 0 0", scale="0.001 0.001 0.001"):
 
     # Take absolute value of extrema
     extrema = numpy.absolute(extrema)
+
+    inertia = inertia / volume * mass
 
     # TODO Save bounding box sizes and extrema as properties
     # to make composing easier
@@ -72,5 +75,5 @@ def mesh(name, mesh_path, rpy="0 0 0", scale="0.001 0.001 0.001"):
         />
     </inertial>
 </link>""".format(name=name, geom_center=geom_center, bounding_box=bounding_box,
-        com=cog, mass=volume, scale=scale, i=inertia, extrema=extrema, rpy=rpy, mesh_path=mesh_path)
+        com=cog, mass=mass, scale=scale, i=inertia, extrema=extrema, rpy=rpy, mesh_path=mesh_path)
 
