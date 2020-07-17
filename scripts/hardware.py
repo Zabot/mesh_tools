@@ -42,13 +42,24 @@ def mesh(name, mesh_path, mass, rpy="0 0 0", scale="0.001 0.001 0.001"):
     mesh.rotate([0,1,0], rpy_vector[1])
     mesh.rotate([0,0,1], rpy_vector[2])
 
-    volume, cog, inertia = mesh.get_mass_properties()
     geom_center, bounding_box, extrema = get_bounding_box(mesh)
 
     # Take absolute value of extrema
     extrema = numpy.absolute(extrema)
 
-    inertia = inertia / volume * mass
+
+    if mesh.check():
+        # If the mesh is closed, compute real inertial properties
+        volume, cog, inertia = mesh.get_mass_properties()
+        inertia = inertia / volume * mass
+    else:
+        # Otherwise, use the geometric center, mass, and tensfor for cuboid
+        cog = geom_center
+        inertia = numpy.eye(3) * mass
+        inertia[0][0] = 1/12.0 * mass * (bounding_box[1] ** 2 + bounding_box[2]**2)
+        inertia[1][1] = 1/12.0 * mass * (bounding_box[0] ** 2 + bounding_box[2]**2)
+        inertia[2][2] = 1/12.0 * mass * (bounding_box[0] ** 2 + bounding_box[1]**2)
+
 
     # TODO Save bounding box sizes and extrema as properties
     # to make composing easier
