@@ -1,9 +1,10 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="example">
-    <xacro:python file="$(find mesh_tools)/scripts/hardware.py" module="hardware"/>
-    <xacro:mesh name="servo1" rpy="0 0 0" mesh_path="$(find mesh_tools)/meshes/mx64.stl"/>
-    <xacro:mesh name="servo2" rpy="0 0 0" mesh_path="$(find mesh_tools)/meshes/mx64.stl"/>
-    <xacro:mesh name="servo3" rpy="0 0 0" mesh_path="$(find mesh_tools)/meshes/mx64.stl"/>
-    <xacro:mesh name="servo4" rpy="0 0 0" mesh_path="$(find mesh_tools)/meshes/mx64.stl"/>
+    <xacro:python file="$(find mesh_tools)/scripts/mesh_macro.py" module="mesh_macro"/>
+    <xacro:auto_mesh name="servo1" rpy="0 0 0" mesh_path="$(find mesh_tools)/meshes/mx64.stl"/>
+    <xacro:auto_mesh name="servo2" rpy="0 0 0" mesh_path="$(find mesh_tools)/meshes/mx64.stl"/>
+    <xacro:auto_mesh name="servo3" rpy="0 0 0" mesh_path="$(find mesh_tools)/meshes/mx64.stl"/>
+    <xacro:auto_mesh name="servo4" rpy="0 0 0" mesh_path="$(find mesh_tools)/meshes/mx64.stl"/>
+    <xacro:auto_mesh name="cube" rpy="0 0 0" mesh_path="$(find mesh_tools)/meshes/cube.dae"/>
 </robot>
 
