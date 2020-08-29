@@ -15,6 +15,7 @@
 
   <exec_depend>python-numpy-stl-pip</exec_depend>
   <exec_depend>python-collada</exec_depend>
+  <exec_depend>resource_retriever</exec_depend>
 
   <export></export>
 </package>
